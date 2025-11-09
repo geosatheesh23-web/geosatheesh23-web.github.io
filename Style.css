@@ -100,4 +100,108 @@ footer{
     
     justify-content: center;
     align-items: center;
+=======
+html{
+    margin-top: 8px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+.mhead{
+    float: left;
+    padding-left: 25px;
+    font-size: 2em;
+}
+nav{
+    font-size: 1.5em;
+    float: right;
+    margin-right: 5px;
+    padding: auto;
+}
+nav a{
+    float: left;
+    display: block;
+    color: white;
+    padding: 5px;
+    padding-left: 25px;
+    text-decoration: none;
+}
+nav a:hover{
+    text-shadow: 2px 2px 4px black;
+    color: black;
+    background-color: antiquewhite;
+    font-size: 1.80rem;
+    box-shadow: 2px 2px 4px 2px white;
+}
+@keyframes marQcc{
+    0%{color:red;}  
+    10%{color:orange;}
+    20%{color: yellow;}
+    30%{color: green;}
+    40%{color: blue;}
+    50%{color: indigo;}
+    60%{color: purple;}
+    70%{color: violet;}
+    80%{color: pink;}
+    90%{color: aquamarine;}
+    100%{color: aqua;}
+    from{
+        text-shadow: 2px 2px 4px cornsilk;
+    }
+    to{
+        text-shadow: 2px 2px 4px red;
+    }
+}
+#Welcome{
+    font: 2em sans-serif;
+    font-weight: bolder;
+    animation: marQcc 5s ease-in-out 0ms infinite alternate-reverse both;
+}
+#aura{
+    border-top-left-radius:47.5%;
+    border-top-right-radius:47.5%;
+    margin-top: 50px;
+    margin-left: 10px;
+    height: 350px;
+    border-bottom-left-radius: 35%;
+    border-bottom-right-radius: 35%;
+    float: left;  
+}
+.frc{
+    justify-content:center;
+    align-items:center;
+    gap:8rem;
+    font: 2em calibri;
+}
+div span{
+    text-shadow: 2px 2px 4px rgb(245, 142, 24);
+    color: rgb(255, 38, 0);
+    font-weight: bold;
+    font-size: 2.25rem;
+}
+div p #anisinfo::before{
+    content:"Home"; 
+    animation: Contch 10s infinite;
+}
+div p #anisinfo::after{
+    content: "";
+    background-color: black;
+    position: absolute;
+    width: calc(100%+8px);
+    height: 100%;
+}
+@keyframes Contch{
+    0%, 24%{content: "Home";}
+    25%, 49%{content: "About";}
+    50%, 74%{content: "Contact";}
+    76%, 100%{content: "Other";}
+}
+footer{
+    position: relative;
+    transform: translateY(calc(475%));
+}
+.footer{
+    
+    justify-content: center;
+    align-items: center;
+>>>>>>> ec878f3b768a03189fdf82385f8b1575f0c6f2e9
 }
