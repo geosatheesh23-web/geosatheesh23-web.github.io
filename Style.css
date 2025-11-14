@@ -29,6 +29,39 @@ nav a:hover{
     font-size: 1.80rem;
     box-shadow: 2px 2px 4px 2px white;
 }
+.dropdown{
+    margin-top: 5px;
+    float:right;
+}
+.dropdown button{
+    color: white;
+    background-color: black;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5em;
+    margin-right: 5px;
+    padding: auto;
+}
+.dropdown a{
+    display: block;
+    text-decoration: none;
+    color: white;
+    padding: 2px 5px;
+    font-size: 1.5em;
+}
+.dropdown .content{
+    display: none;
+    position: absolute;
+}
+.dropdown:hover .content{
+    display: block;
+}
+.dropdown a:hover{
+    text-shadow: 2px 2px 4px black;
+    color: black;
+    background-color: antiquewhite;
+    box-shadow: 2px 2px 4px 2px white;
+}
 @keyframes marQcc{
     0%{color:red;}  
     10%{color:orange;}
@@ -69,7 +102,7 @@ nav a:hover{
     gap:8rem;
     font: 2em calibri;
 }
-div span{
+div #paname{
     text-shadow: 2px 2px 4px rgb(245, 142, 24);
     color: rgb(255, 38, 0);
     font-weight: bold;
@@ -78,6 +111,10 @@ div span{
 div p #anisinfo::before{
     content:"Home"; 
     animation: Contch 10s infinite;
+    text-shadow: 2px 2px 4px rgb(245, 142, 24);
+    color: rgb(255, 38, 0);
+    font-weight: bold;
+    font-size: 2.25rem;
 }
 div p #anisinfo::after{
     content: "";
@@ -90,13 +127,28 @@ div p #anisinfo::after{
     0%, 24%{content: "Home";}
     25%, 49%{content: "About";}
     50%, 74%{content: "Contact";}
-    76%, 100%{content: "Other";}
+    76%, 100%{content: "More";}
 }
-footer{
-    position: relative;
-    transform: translateY(calc(475%));
+footer{ 
+    position: fixed;
+    bottom: 2%;
+    left: 32%;
+    right: 32%;
 }
+<<<<<<< Updated upstream
 .footer{
     justify-content: center;
     align-items: center;
 }
+=======
+footer .footer{
+    text-align: center;
+}
+#mail{
+    font-size: 1.5em;
+}
+#mail a{
+    text-decoration: bold;
+    color:rgb(247, 206, 146)
+}
+>>>>>>> Stashed changes
