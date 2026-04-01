@@ -11,13 +11,14 @@
     <header>
         <span class="mhead">GPS</span>
         <div class="dropdown">
-            <button onclick="content.hidden^=5">More ▼</button>
-            <div class="content">
-                <a href="interactive.html">Interactive</a>
-                <a href="games.html">Games</a>
-                <a href="collab.html">Collab</a>
-            </div>
-        </div>   
+    <!-- Updated the toggle logic to be more reliable -->
+    <button onclick="document.getElementById('moreMenu').classList.toggle('show')">More ▼</button>
+    <div class="content" id="moreMenu">
+        <a href="interactive.html">Interactive</a>
+        <a href="games.html">Games</a>
+        <a href="collab.html">Collab</a>
+    </div>
+</div>
         <nav>
             <a href="index.html" class="nav">Home</a>
             <a href="about.html" class="nav">About</a>
