@@ -34,3 +34,14 @@ function animateOnScroll() {
 
 window.addEventListener('scroll', animateOnScroll);
 animateOnScroll();
+window.onclick = function(event) {
+  if (!event.target.matches('button')) {
+    var dropdowns = document.getElementsByClassName("content");
+    for (var i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
