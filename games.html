@@ -101,20 +101,9 @@
         }
 
         .grid-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(4, 1fr);
-            gap: 10px;
+            position: relative;
             width: 100%;
             height: 100%;
-            position: relative;
-        }
-
-        .grid-cell {
-            background: #cdc1b4;
-            border-radius: 3px;
-            width: 100%;
-            aspect-ratio: 1;
         }
 
         .cell {
@@ -130,6 +119,7 @@
             color: #776e65;
             transition: all 0.15s ease-in-out;
             font-family: "Helvetica Neue", Arial, sans-serif;
+            box-sizing: border-box;
         }
 
         .cell[data-value="2"] { background: #eee4da; color: #776e65; }
@@ -309,24 +299,7 @@
             </div>
             
             <div class="grid-wrapper">
-                <div class="grid-container" id="grid">
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                </div>
+                <div class="grid-container" id="grid"></div>
             </div>
             
             <div class="controls">
@@ -359,14 +332,11 @@
     </footer>
 
     <script>
-        // 2048 Game - Original Logic
         let board = [];
         let score = 0;
         let bestScore = localStorage.getItem('2048bestScore') || 0;
         const SIZE = 4;
         let gameOver = false;
-        
-        // Swipe/Touch controls
         let touchStartX = 0;
         let touchStartY = 0;
         
@@ -407,8 +377,7 @@
         
         function updateDisplay() {
             const grid = document.getElementById('grid');
-            const cells = grid.querySelectorAll('.cell');
-            cells.forEach(cell => cell.remove());
+            grid.innerHTML = '';
             
             for (let i = 0; i < SIZE; i++) {
                 for (let j = 0; j < SIZE; j++) {
@@ -418,11 +387,10 @@
                         cell.setAttribute('data-value', board[i][j]);
                         cell.textContent = board[i][j];
                         
-                        // Calculate exact position: each cell is 70px with 10px gap
-                        const x = j * 80;
-                        const y = i * 80;
-                        cell.style.left = x + 'px';
-                        cell.style.top = y + 'px';
+                        const xPos = j * 80;
+                        const yPos = i * 80;
+                        cell.style.left = xPos + 'px';
+                        cell.style.top = yPos + 'px';
                         
                         grid.appendChild(cell);
                     }
@@ -525,7 +493,6 @@
             for (let i = 0; i < SIZE; i++) {
                 for (let j = 0; j < SIZE; j++) {
                     if (board[i][j] === 0) return false;
-                    
                     if (j < SIZE - 1 && board[i][j] === board[i][j + 1]) return false;
                     if (i < SIZE - 1 && board[i][j] === board[i + 1][j]) return false;
                 }
@@ -540,7 +507,6 @@
             document.getElementById('gameOverTitle').textContent = score >= 2048 ? 'You Won!' : 'Game Over!';
         }
         
-        // Keyboard controls
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') {
                 e.preventDefault();
@@ -557,7 +523,6 @@
             }
         });
         
-        // Touch/Swipe controls
         const gridWrapper = document.querySelector('.grid-wrapper');
         gridWrapper.addEventListener('touchstart', (e) => {
             touchStartX = e.touches[0].clientX;
@@ -567,7 +532,6 @@
         gridWrapper.addEventListener('touchend', (e) => {
             let touchEndX = e.changedTouches[0].clientX;
             let touchEndY = e.changedTouches[0].clientY;
-            
             let diffX = touchStartX - touchEndX;
             let diffY = touchStartY - touchEndY;
             
@@ -580,7 +544,6 @@
             }
         }, false);
         
-        // Mouse drag controls
         let mouseDown = false;
         let mouseStartX = 0;
         let mouseStartY = 0;
@@ -597,7 +560,6 @@
         
         document.addEventListener('mousemove', (e) => {
             if (!mouseDown) return;
-            
             let diffX = mouseStartX - e.clientX;
             let diffY = mouseStartY - e.clientY;
             
@@ -613,7 +575,6 @@
             }
         });
         
-        // Initialize
         document.getElementById('best').textContent = bestScore;
         newGame();
     </script>
