@@ -105,6 +105,22 @@
             position: relative;
             width: 100%;
             height: 100%;
+            background-image: 
+                linear-gradient(90deg, transparent 70px, #a89f95 70px, #a89f95 80px, transparent 80px),
+                linear-gradient(90deg, transparent 150px, #a89f95 150px, #a89f95 160px, transparent 160px),
+                linear-gradient(90deg, transparent 230px, #a89f95 230px, #a89f95 240px, transparent 240px),
+                linear-gradient(0deg, transparent 70px, #a89f95 70px, #a89f95 80px, transparent 80px),
+                linear-gradient(0deg, transparent 150px, #a89f95 150px, #a89f95 160px, transparent 160px),
+                linear-gradient(0deg, transparent 230px, #a89f95 230px, #a89f95 240px, transparent 240px);
+        }
+
+        .grid-background {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            background: #d4d0c8;
+            border-radius: 3px;
+            border: 1px solid #cdc1b4;
         }
 
         .cell {
@@ -381,6 +397,20 @@
             const grid = document.getElementById('grid');
             grid.innerHTML = '';
             
+            // Create 16 empty tile backgrounds
+            for (let i = 0; i < SIZE; i++) {
+                for (let j = 0; j < SIZE; j++) {
+                    const bgTile = document.createElement('div');
+                    bgTile.className = 'grid-background';
+                    const xPos = j * 80;
+                    const yPos = i * 80;
+                    bgTile.style.left = xPos + 'px';
+                    bgTile.style.top = yPos + 'px';
+                    grid.appendChild(bgTile);
+                }
+            }
+            
+            // Create tiles with values
             for (let i = 0; i < SIZE; i++) {
                 for (let j = 0; j < SIZE; j++) {
                     if (board[i][j] !== 0) {
