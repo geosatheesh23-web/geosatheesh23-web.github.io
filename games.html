@@ -92,6 +92,12 @@
             position: relative;
             width: 340px;
             height: 340px;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .grid-wrapper:active {
+            cursor: grabbing;
         }
 
         .grid-container {
@@ -412,6 +418,7 @@
                         cell.setAttribute('data-value', board[i][j]);
                         cell.textContent = board[i][j];
                         
+                        // Calculate exact position: each cell is 70px with 10px gap
                         const x = j * 80;
                         const y = i * 80;
                         cell.style.left = x + 'px';
