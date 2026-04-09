@@ -3,9 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Games</title>
+    <title>Games - 2048</title>
     <link rel="stylesheet" type="text/css" href="Style.css">
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <style>
+        #game-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        
+        .game-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+            color: #776e65;
+            margin-bottom: 10px;
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            grid-gap: 10px;
+            background: #bbada0;
+            padding: 10px;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        
+        .cell {
+            width: 100px;
+            height: 100px;
+            background: #cdc1b4;
+            border-radius: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 35px;
+            color: #776e65;
+        }
+        
+        .cell[data-value="0"] { background: #cdc1b4; color: transparent; }
+        .cell[data-value="2"] { background: #eee4da; color: #776e65; }
+        .cell[data-value="4"] { background: #ede0c8; color: #776e65; }
+        .cell[data-value="8"] { background: #f2b179; color: #f9f6f2; }
+        .cell[data-value="16"] { background: #f59563; color: #f9f6f2; }
+        .cell[data-value="32"] { background: #f67c5f; color: #f9f6f2; }
+        .cell[data-value="64"] { background: #f65e3b; color: #f9f6f2; }
+        .cell[data-value="128"] { background: #edcf72; color: #f9f6f2; font-size: 30px; }
+        .cell[data-value="256"] { background: #edcc61; color: #f9f6f2; font-size: 30px; }
+        .cell[data-value="512"] { background: #edc850; color: #f9f6f2; font-size: 30px; }
+        .cell[data-value="1024"] { background: #edc53f; color: #f9f6f2; font-size: 25px; }
+        .cell[data-value="2048"] { background: #edc22e; color: #f9f6f2; font-size: 25px; }
+        
+        .controls {
+            margin-top: 20px;
+        }
+        
+        .game-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            background: #8f7a66;
+            color: #f9f6f2;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #6f5e4e;
+            transition: all 0.15s ease-in-out;
+        }
+        
+        .game-btn:hover {
+            background: #9f8a76;
+        }
+        
+        .game-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 0 0 #6f5e4e;
+        }
+        
+        .instructions {
+            text-align: center;
+            margin-top: 30px;
+            color: #776e65;
+            max-width: 600px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -24,257 +116,168 @@
             <a href="contact.html" class="nav">Contact</a>
         </nav>  
     </header>
+    
     <main>
         <marquee behavior="scroll" direction="right" id="Welcome">Welcome</marquee>
         <div class="frc">
-            <p>This is the <span id="paname">Games page</span></p></div>
-<h1>2048</h1>
-```javascript
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
-  #game2048 {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    width: 320px;
-    height: 320px;
-    background: #bbada0;
-    border-radius: 15px;
-    padding: 15px;
-    box-sizing: border-box;
-    user-select: none;
-    font-family: 'Montserrat', sans-serif;
-    box-shadow:
-      0 4px 6px rgba(0,0,0,0.3),
-      inset 0 2px 0 rgba(255,255,255,0.3);
-    cursor: grab;
-    z-index: 9999;
-  }
-  #game2048:active {
-    cursor: grabbing;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 15px;
-    width: 100%;
-    height: 100%;
-    background: #bbada0;
-    border-radius: 15px;
-    padding: 15px;
-    box-sizing: border-box;
-  }
-  .cell {
-    width: 60px;
-    height: 60px;
-    background: #cdc1b4;
-    border-radius: 10px;
-    box-shadow: inset 0 2px 0 rgba(255,255,255,0.3);
-  }
-  .tile {
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 28px;
-    line-height: 60px;
-    text-align: center;
-    color: #776e65;
-    user-select: none;
-    transition: transform 0.18s ease, background-color 0.18s ease, color 0.18s ease;
-    will-change: transform;
-    box-shadow:
-      0 4px 0 rgba(0,0,0,0.1),
-      inset 0 2px 0 rgba(255,255,255,0.3);
-  }
-  .tile.new {
-    animation: popin 0.25s ease forwards;
-  }
-  .tile.merged {
-    animation: popin 0.25s ease forwards;
-  }
-  @keyframes popin {
-    0% {
-      transform: scale(0);
-      opacity: 0;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-  .scoreboard {
-    position: absolute;
-    top: -60px;
-    left: 0;
-    width: 100%;
-    color: #eee4da;
-    font-size: 20px;
-    font-weight: 700;
-    text-align: center;
-    text-shadow: 0 2px 3px rgba(0,0,0,0.3);
-    user-select: none;
-  }
-  .game-over {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 280px;
-    height: 280px;
-    margin-left: -140px;
-    margin-top: -140px;
-    background: rgba(238, 228, 218, 0.85);
-    border-radius: 15px;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 36px;
-    font-weight: 700;
-    color: #776e65;
-    text-shadow: 0 2px 3px rgba(255,255,255,0.7);
-    user-select: none;
-  }
-  .game-over button {
-    margin-top: 20px;
-    background: #8f7a66;
-    border: none;
-    border-radius: 8px;
-    color: #f9f6f2;
-    font-weight: 700;
-    font-size: 18px;
-    padding: 10px 20px;
-    cursor: pointer;
-    box-shadow: 0 3px 0 #6f5e4e;
-    transition: background-color 0.3s ease;
-  }
-  .game-over button:hover {
-    background: #a3907a;
-  }
-</style>
-<div id="game2048" tabindex="0" aria-label="2048 game" role="application" aria-live="polite" aria-atomic="true">
-  <div class="scoreboard" aria-live="polite" aria-atomic="true">Score: 0</div>
-  <div class="grid" aria-hidden="true"></div>
-</div>
-<script>
-(() => {
-  const SIZE = 4;
-  const TILE_SIZE = 60;
-  const TILE_GAP = 15;
-  const container = document.getElementById('game2048');
-  const gridEl = container.querySelector('.grid');
-  const scoreEl = container.querySelector('.scoreboard');
-
-  let board = [];
-  let tiles = [];
-  let score = 0;
-  let animating = false;
-  let gameOver = false;
-
-  // Position for floating drag
-  let dragOffsetX = 0;
-  let dragOffsetY = 0;
-  let dragging = false;
-
-  // Initialize board and cells
-  function initGrid() {
-    gridEl.innerHTML = '';
-    for (let i = 0; i < SIZE * SIZE; i++) {
-      const cell = document.createElement('div');
-      cell.classList.add('cell');
-      gridEl.appendChild(cell);
-    }
-  }
-
-  // Create tile element
-  function createTile(value, row, col, isNew = false) {
-    const tile = document.createElement('div');
-    tile.classList.add('tile');
-    if (isNew) tile.classList.add('new');
-    tile.textContent = value;
-    setTileStyle(tile, value);
-    positionTile(tile, row, col);
-    gridEl.appendChild(tile);
-    return { el: tile, value, row, col, merged: false };
-  }
-
-  // Set tile color and text color based on value
-  function setTileStyle(tile, value) {
-    const colors = {
-      2: ['#eee4da', '#776e65'],
-      4: ['#ede0c8', '#776e65'],
-      8: ['#f2b179', '#f9f6f2'],
-      16: ['#f59563', '#f9f6f2'],
-      32: ['#f67c5f', '#f9f6f2'],
-      64: ['#f65e3b', '#f9f6f2'],
-      128: ['#edcf72', '#f9f6f2'],
-      256: ['#edcc61', '#f9f6f2'],
-      512: ['#edc850', '#f9f6f2'],
-      1024: ['#edc53f', '#f9f6f2'],
-      2048: ['#edc22e', '#f9f6f2'],
-    };
-    let bg = '#3c3a32';
-    let color = '#f9f6f2';
-    if (colors[value]) {
-      bg = colors[value][0];
-      color = colors[value][1];
-    }
-    tile.style.backgroundColor = bg;
-    tile.style.color = color;
-    tile.style.fontSize = value > 512 ? '22px' : '28px';
-  }
-
-  // Position tile absolutely in grid
-  function positionTile(tile, row, col) {
-    const x = col * (TILE_SIZE + TILE_GAP);
-    const y = row * (TILE_SIZE + TILE_GAP);
-    tile.style.transform = `translate(${x}px, ${y}px)`;
-  }
-
-  // Clear all tiles from DOM and reset tiles array
-  function clearTiles() {
-    tiles.forEach(t => {
-      if (t.el.parentNode) t.el.parentNode.removeChild(t.el);
-    });
-    tiles = [];
-  }
-
-  // Add a random tile (2 or 4) to an empty spot
-  function addRandomTile() {
-    const empty = [];
-    for (let r = 0; r < SIZE; r++) {
-      for (let c = 0; c < SIZE; c++) {
-        if (board[r][c] === 0) empty.push({ r, c });
-      }
-    }
-    if (empty.length === 0) return false;
-    const spot = empty[Math.floor(Math.random() * empty.length)];
-    const value = Math.random() < 0.9 ? 2 : 4;
-    board[spot.r][spot.c] = value;
-    const tile = createTile(value, spot.r, spot.c, true);
-    tiles.push(tile);
-    return true;
-  }
-
-  // Update score display
-  function updateScore() {
-    scoreEl.textContent = `Score: ${score}`;
-  }
-
-  // Initialize empty board
-  function initBoard() {
-    board = [];
-    for (let i = 0; i < SIZE; i++) {
-      board.push(new Array(SIZE).fill(
-        <p>On the Way</p>
+            <p>This is the <span id="paname">Games page</span></p>
+            <p>You can go to <span id="anisinfo">Collab</span></p>
+        </div>
+        
+        <div id="game-container">
+            <h1>2048 Game</h1>
+            
+            <div class="game-info">
+                <div class="score">Score: <span id="score">0</span></div>
+            </div>
+            
+            <div class="grid-container" id="grid"></div>
+            
+            <div class="controls">
+                <button class="game-btn" onclick="newGame()">New Game</button>
+            </div>
+            
+            <div class="instructions">
+                <h3>How to Play:</h3>
+                <p>Use arrow keys (↑ ↓ ← →) to move tiles</p>
+                <p>When two tiles with the same number touch, they merge into one</p>
+                <p>The goal is to create a 2048 tile!</p>
+            </div>
+        </div>
     </main>
+    
     <footer>
         <div class="footer">
             <p>Created by: <b>GEO P SATHEESH</b></p>
             <p>&copy; copyright reserved</p>
         </div>
     </footer>
+
+    <script>
+        // 2048 Game Logic
+        let board = [];
+        let score = 0;
+        const SIZE = 4;
+        
+        function newGame() {
+            board = [];
+            score = 0;
+            for (let i = 0; i < SIZE; i++) {
+                board[i] = [];
+                for (let j = 0; j < SIZE; j++) {
+                    board[i][j] = 0;
+                }
+            }
+            addNewTile();
+            addNewTile();
+            updateDisplay();
+        }
+        
+        function addNewTile() {
+            let emptyTiles = [];
+            for (let i = 0; i < SIZE; i++) {
+                for (let j = 0; j < SIZE; j++) {
+                    if (board[i][j] === 0) {
+                        emptyTiles.push({x: i, y: j});
+                    }
+                }
+            }
+            
+            if (emptyTiles.length > 0) {
+                let randomIndex = Math.floor(Math.random() * emptyTiles.length);
+                let tile = emptyTiles[randomIndex];
+                board[tile.x][tile.y] = Math.random() < 0.9 ? 2 : 4;
+            }
+        }
+        
+        function updateDisplay() {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = '';
+            
+            for (let i = 0; i < SIZE; i++) {
+                for (let j = 0; j < SIZE; j++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    cell.setAttribute('data-value', board[i][j]);
+                    cell.textContent = board[i][j] === 0 ? '' : board[i][j];
+                    grid.appendChild(cell);
+                }
+            }
+            
+            document.getElementById('score').textContent = score;
+        }
+        
+        function move(direction) {
+            let newBoard = JSON.parse(JSON.stringify(board));
+            
+            if (direction === 'left' || direction === 'right') {
+                for (let i = 0; i < SIZE; i++) {
+                    let row = newBoard[i];
+                    if (direction === 'right') row = row.reverse();
+                    row = slideAndMerge(row);
+                    if (direction === 'right') row = row.reverse();
+                    newBoard[i] = row;
+                }
+            } else {
+                for (let j = 0; j < SIZE; j++) {
+                    let column = [];
+                    for (let i = 0; i < SIZE; i++) {
+                        column.push(newBoard[i][j]);
+                    }
+                    if (direction === 'down') column = column.reverse();
+                    column = slideAndMerge(column);
+                    if (direction === 'down') column = column.reverse();
+                    for (let i = 0; i < SIZE; i++) {
+                        newBoard[i][j] = column[i];
+                    }
+                }
+            }
+            
+            if (JSON.stringify(board) !== JSON.stringify(newBoard)) {
+                board = newBoard;
+                addNewTile();
+                updateDisplay();
+            }
+        }
+        
+        function slideAndMerge(line) {
+            line = line.filter(val => val !== 0);
+            
+            for (let i = 0; i < line.length - 1; i++) {
+                if (line[i] === line[i + 1]) {
+                    line[i] *= 2;
+                    score += line[i];
+                    line.splice(i + 1, 1);
+                }
+            }
+            
+            while (line.length < SIZE) {
+                line.push(0);
+            }
+            
+            return line;
+        }
+        
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                move('left');
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                move('right');
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                move('up');
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                move('down');
+            }
+        });
+        
+        // Initialize game on page load
+        window.addEventListener('DOMContentLoaded', newGame);
+        newGame();
+    </script>
 </body>
 </html>
