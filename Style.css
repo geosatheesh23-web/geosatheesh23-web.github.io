@@ -512,43 +512,42 @@ footer {
         font-size: 1.2em;
     }
 }
-/* ===== Pagination Fix (force override) ===== */
+/* ===== FORCE STYLE LINKS ===== */
 
-.pagination {
-    text-align: center;
-    margin: 25px 0 10px 0;
-}
-
-.page-btn {
+.pagination a {
     display: inline-block;
     padding: 10px 16px;
     margin: 0 6px;
     font-size: 15px;
     font-weight: 600;
-    color: #776e65 !important;
-    background: transparent !important;
-    border: 2px solid #bbada0 !important;
-    border-radius: 6px;
-    text-decoration: none;
-    transition: all 0.2s ease;
+
+    color: #f9f6f2;
+    background: rgba(255, 255, 255, 0.1);
+
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+
+    text-decoration: none;   /* THIS removes blue underline */
+    cursor: pointer;
+
+    transition: all 0.25s ease;
 }
 
 /* hover */
-.page-btn:hover {
-    background: #bbada0 !important;
-    color: #f9f6f2 !important;
+.pagination a:hover {
+    background: #667eea;
+    border-color: #667eea;
     transform: translateY(-2px);
 }
 
 /* click */
-.page-btn:active {
-    transform: translateY(1px);
-    background: #a89f95 !important;
+.pagination a:active {
+    transform: scale(0.95);
 }
 
 /* active page */
-.page-btn.active {
-    background: #8f7a66 !important;
-    color: #f9f6f2 !important;
-    border-color: #8f7a66 !important;
+.pagination a.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
