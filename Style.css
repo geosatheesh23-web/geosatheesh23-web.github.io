@@ -510,7 +510,8 @@ footer {
 
     .feature-card h3 {
         font-size: 1.2em;
-    }}
+    }
+}
 /* ===== Pagination Fix (force override) ===== */
 
 .pagination {
