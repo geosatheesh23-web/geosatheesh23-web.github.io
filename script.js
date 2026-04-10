@@ -47,13 +47,42 @@ window.onclick = function(event) {
 }
 document.addEventListener("DOMContentLoaded", function () {
     const links = document.querySelectorAll(".pagination a");
-    let currentPage = window.location.pathname.split("/").pop();
+    const prevBtn = document.querySelector(".prev-btn");
+    const nextBtn = document.querySelector(".next-btn");
 
+    let pages = [
+        "games.html",
+        "games2.html",
+        "games3.html",
+        "games4.html",
+        "games5.html"
+    ];
+
+    let currentPage = window.location.pathname.split("/").pop();
     if (currentPage === "") currentPage = "games.html";
 
+    let currentIndex = pages.indexOf(currentPage);
+
+    // Highlight active page
     links.forEach(link => {
         if (link.getAttribute("href") === currentPage) {
             link.classList.add("active");
         }
     });
+
+    // Prev button
+    if (currentIndex > 0) {
+        prevBtn.href = pages[currentIndex - 1];
+    } else {
+        prevBtn.classList.add("active");
+        prevBtn.removeAttribute("href");
+    }
+
+    // Next button
+    if (currentIndex < pages.length - 1) {
+        nextBtn.href = pages[currentIndex + 1];
+    } else {
+        nextBtn.classList.add("active");
+        nextBtn.removeAttribute("href");
+    }
 });
