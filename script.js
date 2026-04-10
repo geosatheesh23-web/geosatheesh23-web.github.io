@@ -45,3 +45,15 @@ window.onclick = function(event) {
     }
   }
 }
+document.addEventListener("DOMContentLoaded", function () {
+    const links = document.querySelectorAll(".pagination a");
+    let currentPage = window.location.pathname.split("/").pop();
+
+    if (currentPage === "") currentPage = "games.html";
+
+    links.forEach(link => {
+        if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active");
+        }
+    });
+});
