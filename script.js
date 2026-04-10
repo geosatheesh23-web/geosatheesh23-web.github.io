@@ -86,3 +86,31 @@ document.addEventListener("DOMContentLoaded", function () {
         nextBtn.removeAttribute("href");
     }
 });
+// ===== Smooth Page Transitions =====
+document.addEventListener("DOMContentLoaded", function () {
+    document.body.classList.remove("fade-out");
+
+    const links = document.querySelectorAll("a");
+
+    links.forEach(link => {
+        const href = link.getAttribute("href");
+
+        // skip external / anchors / empty
+        if (
+            !href ||
+            href.startsWith("#") ||
+            href.startsWith("http") ||
+            link.hasAttribute("target")
+        ) return;
+
+        link.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            document.body.classList.add("fade-out");
+
+            setTimeout(() => {
+                window.location.href = href;
+            }, 300); // match CSS timing
+        });
+    });
+});
