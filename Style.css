@@ -511,43 +511,43 @@ footer {
     .feature-card h3 {
         font-size: 1.2em;
     }
+/* ===== Pagination Fix (force override) ===== */
+
 .pagination {
     text-align: center;
-    margin-top: 30px;
+    margin: 25px 0 10px 0;
 }
 
-/* base button */
 .page-btn {
     display: inline-block;
     padding: 10px 16px;
     margin: 0 6px;
     font-size: 15px;
     font-weight: 600;
-    color: #776e65;
-    background: transparent;
-    border: 2px solid #bbada0;
+    color: #776e65 !important;
+    background: transparent !important;
+    border: 2px solid #bbada0 !important;
     border-radius: 6px;
     text-decoration: none;
     transition: all 0.2s ease;
 }
 
-/* hover (clean highlight) */
+/* hover */
 .page-btn:hover {
-    background: #bbada0;
-    color: #f9f6f2;
+    background: #bbada0 !important;
+    color: #f9f6f2 !important;
     transform: translateY(-2px);
 }
 
-/* click press */
+/* click */
 .page-btn:active {
     transform: translateY(1px);
-    background: #a89f95;
+    background: #a89f95 !important;
 }
 
-/* current page */
+/* active page */
 .page-btn.active {
-    background: #8f7a66;
-    color: #f9f6f2;
-    border-color: #8f7a66;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    background: #8f7a66 !important;
+    color: #f9f6f2 !important;
+    border-color: #8f7a66 !important;
 }
